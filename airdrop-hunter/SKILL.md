@@ -756,3 +756,283 @@ To prevent information overload, here are the **TOP 5 priority tasks**:
 
 For full details on any specific project, ask: "check [project name]"
 ```
+
+---
+
+## Phase 3: Automation Workflow Testing
+
+Test the scheduled automation to ensure reliable daily delivery.
+
+### Test 9: Manual Workflow Trigger
+
+**Purpose:** Verify the workflow executes correctly without waiting for scheduled time.
+
+**Steps:**
+```
+1. Navigate to Workflow editor in Coze
+2. Click "Run" or "Test" button (top right corner)
+3. Monitor execution in real-time
+```
+
+**What to Check:**
+
+| Node | Expected Status | Checkpoint |
+|------|-----------------|------------|
+| Start Node | 🟢 Green | Triggered successfully |
+| Search Node | 🟢 Green | Returned search results |
+| AI Node | 🟢 Green | Generated formatted report |
+| End Node | 🟢 Green | Delivered output |
+
+**Visual Check:**
+```
+All nodes should show GREEN checkmarks:
+
+┌─────────────┐
+│  Start ✅   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Search ✅   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│   AI ✅     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│   End ✅    │
+└─────────────┘
+```
+
+**Pass Criteria:**
+- All 4 nodes show green status
+- No red/yellow error indicators
+- Execution completes in < 30 seconds
+
+---
+
+### Test 10: Variable Passing Verification
+
+**Purpose:** Ensure data flows correctly between nodes.
+
+**Critical Check: Search → AI Node**
+
+**Common Bug:**
+```
+❌ WRONG: AI node only receives titles
+Search returns: [
+  "Scroll Airdrop Guide",
+  "zkSync Testnet Tutorial"
+]
+
+AI generates: Generic/empty report (no details)
+
+---
+
+✅ CORRECT: AI node receives full content
+Search returns: [
+  {
+    "title": "Scroll Airdrop Guide",
+    "url": "https://...",
+    "snippet": "Bridge 0.01 ETH to Scroll network...",
+    "content": "Full article text with steps, costs, deadlines..."
+  }
+]
+
+AI generates: Detailed report with actionable steps
+```
+
+**How to Verify:**
+```
+1. Click on Search node after execution
+2. Check "Output" or "Results" panel
+3. Verify full content is present, not just titles
+4. Click on AI node
+5. Check "Input" panel - should match Search output
+6. Check "Output" panel - should have complete report
+```
+
+**Debug Checklist:**
+```
+□ Search node output contains "content" or "body" field
+□ AI node input matches Search node output
+□ AI node output contains all 5 sections
+□ No empty/missing data in final report
+```
+
+---
+
+### Test 11: Scheduled Trigger Timing
+
+**Purpose:** Verify automation runs at correct time.
+
+**Steps:**
+```
+1. Set trigger to a near-future time (e.g., 5 minutes from now)
+2. Wait for automated execution
+3. Check execution logs
+```
+
+**Time Configuration Checklist:**
+```
+□ Timezone is correct (UTC+8 or your local timezone)
+□ Trigger is set to DAILY frequency
+□ Time is set correctly (e.g., 10:00 AM)
+□ Workflow is ENABLED (not paused)
+```
+
+**Common Issues:**
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Workflow doesn't trigger | Workflow paused | Enable workflow |
+| Wrong time execution | Timezone mismatch | Adjust timezone |
+| Skipped execution | Rate limiting | Reduce frequency |
+| Multiple executions | Duplicate triggers | Check for duplicates |
+
+---
+
+### Test 12: Output Delivery Verification
+
+**Purpose:** Verify report is delivered to the correct destination.
+
+**Test by Destination Type:**
+
+#### Option A: Chat Output
+```
+Check: Report appears in Coze chat interface
+Verify: All sections visible, formatting correct
+```
+
+#### Option B: Telegram Webhook
+```
+Check: Message delivered to Telegram channel
+Verify: Markdown renders correctly
+Test: Emojis display properly (🔥 🧪 ⚠️)
+```
+
+#### Option C: Discord Webhook
+```
+Check: Embed appears in Discord channel
+Verify: Links are clickable
+Test: Fields are properly formatted
+```
+
+**Telegram Webhook Test:**
+```bash
+# Manual test command (replace tokens)
+curl -X POST "https://api.telegram.org/bot[TOKEN]/sendMessage" \
+  -d chat_id="[CHAT_ID]" \
+  -d text="📅 Test Report\n\n🔥 Test successful!" \
+  -d parse_mode="Markdown"
+```
+
+---
+
+### Workflow Debugging Guide
+
+**If Search Node Fails:**
+```
+1. Check plugin permissions
+2. Verify search query syntax
+3. Test query manually in Google/Bing
+4. Check rate limiting status
+```
+
+**If AI Node Produces Empty Report:**
+```
+1. Check Search node output format
+2. Verify variable passing: {search_results} → AI input
+3. Check AI prompt template
+4. Look for token limit errors in logs
+```
+
+**If End Node Fails:**
+```
+1. Verify webhook URL is correct
+2. Check Telegram/Discord bot permissions
+3. Test webhook with curl command
+4. Check for firewall/network issues
+```
+
+---
+
+### Quick Automation Test Checklist
+
+```
+□ Test 9: Manual Trigger          [PASS / FAIL]
+□ Test 10: Variable Passing       [PASS / FAIL]
+□ Test 11: Scheduled Timing       [PASS / FAIL]
+□ Test 12: Output Delivery        [PASS / FAIL]
+
+Overall: ___/4 Passed
+```
+
+**Critical Checks Before Production:**
+```
+✅ All 4 nodes execute with green status
+✅ Variable passing verified (content not just titles)
+✅ Test execution at scheduled time successful
+✅ Output delivered to correct destination
+```
+
+---
+
+### Full Testing Summary
+
+```
+==========================================
+AIRDROP HUNTER - COMPLETE TEST RESULTS
+==========================================
+
+Phase 1: Functionality Testing (4 tests)
+□ Test 1: Search Capability
+□ Test 2: Link Reader
+□ Test 3: Format Compliance
+□ Test 4: Edge Cases
+Phase 1 Score: ___/4
+
+Phase 2: Boundary & Stress Testing (4 tests)
+□ Test 5: Cold Start (No Data)
+□ Test 6: Information Overload
+□ Test 7: Security/Scam Detection
+□ Test 8: Ambiguous Queries
+Phase 2 Score: ___/4
+
+Phase 3: Automation Workflow (4 tests)
+□ Test 9: Manual Trigger
+□ Test 10: Variable Passing
+□ Test 11: Scheduled Timing
+□ Test 12: Output Delivery
+Phase 3 Score: ___/4
+
+==========================================
+TOTAL SCORE: ___/12 PASSED
+==========================================
+
+Deployment Recommendation:
+✅ 12/12: Ready for production
+⚠️ 9-11/12: Minor fixes needed
+🚨 <9/12: Critical issues, do not deploy
+```
+
+---
+
+## Post-Deployment Monitoring
+
+After deploying to production, monitor:
+
+**Daily Checks:**
+- [ ] Workflow executes on time
+- [ ] Report quality is consistent
+- [ ] No user complaints about missing info
+- [ ] No security incidents reported
+
+**Weekly Checks:**
+- [ ] Review search query effectiveness
+- [ ] Update grading criteria if needed
+- [ ] Check for new phishing patterns
+- [ ] Gather user feedback
