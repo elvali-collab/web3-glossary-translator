@@ -557,3 +557,202 @@ Overall: ___/4 Passed
 | Link Reader fails | URL blocked/paywalled | Try different URL source |
 | Missing sections | Prompt template issue | Review AI Node prompt |
 | Wrong format | Template not followed | Add explicit format examples |
+
+---
+
+## Phase 2: Boundary & Stress Testing
+
+Test how the Skill handles extreme cases to prevent hallucinations or crashes.
+
+### Test 5: Cold Start (No Data Scenario)
+
+**Command:**
+```
+Search for airdrop information about 'Mars-L2-Protocol' (a non-existent project).
+```
+
+**Expected Behavior:**
+```
+✅ CORRECT Response:
+"I couldn't find any information about 'Mars-L2-Protocol'. 
+This project either doesn't exist or has no public airdrop information.
+If this is a new project, try searching again later."
+
+❌ WRONG Response:
+- Fabricating fake interaction steps
+- Making up funding amounts
+- Creating fake Twitter handles
+- Hallucinating a website URL
+```
+
+**Pass Criteria:**
+- Honestly admits no information found
+- Does NOT fabricate any details
+- Suggests alternative actions (wait, verify project exists)
+
+---
+
+### Test 6: Information Overload (Token Limit)
+
+**Command:**
+```
+Summarize ALL airdrop tasks across the entire web today.
+```
+
+**What to Check:**
+
+| Checkpoint | Expected Behavior |
+|------------|-------------------|
+| Token overflow | Response completes without cutting off mid-sentence |
+| Priority sorting | Only shows TOP 5-10 most important tasks |
+| Grading applied | Tasks are graded S/A/B, not random listing |
+| Summary format | Brief 1-line per task, not full articles |
+
+**Expected Response Structure:**
+```
+Due to the large volume of airdrops, here are the TOP 5 priority tasks:
+
+🔥 TOP 5 (Grade S/A)
+1. [Most important] - Brief summary
+2. [Second most] - Brief summary
+...
+5. [Fifth] - Brief summary
+
+💡 For full details on specific projects, ask me to "check [project name]"
+```
+
+**Pass Criteria:**
+- Response completes successfully
+- Tasks are prioritized (not random)
+- User is guided to ask for specifics
+
+---
+
+### Test 7: Security Verification (Scam Detection)
+
+**Command:**
+```
+Is this project safe? [Insert URL of known phishing/scam project]
+```
+
+**Sample Scam Indicators to Test:**
+
+| Test Case | Expected Warning |
+|-----------|------------------|
+| Fake domain (e.g., "arbitrum-airdrop.io") | ⚠️ **WARNING: Suspicious domain detected** |
+| No official Twitter | ⚠️ **WARNING: No verified social presence** |
+| Anonymous team | ⚠️ **WARNING: Anonymous team, high risk** |
+| Requires wallet approval | ⚠️ **WARNING: Suspicious contract interaction** |
+| Recent rug pull history | ⚠️ **WARNING: Project flagged for previous scams** |
+
+**Expected Response Format:**
+```
+⚠️ **SECURITY WARNING** ⚠️
+
+🚩 Red Flags Detected:
+- Domain similar to popular project but NOT official
+- No verified Twitter account found
+- Multiple scam reports in community
+
+✅ Official Project:
+- Real URL: [official domain]
+- Real Twitter: @official_handle
+
+Recommendation: DO NOT INTERACT with this link.
+```
+
+**Pass Criteria:**
+- Bold ⚠️ warnings present
+- Specific red flags identified
+- Official project details provided for comparison
+- Clear "DO NOT INTERACT" warning
+
+---
+
+### Test 8: Ambiguous Query Handling
+
+**Test 8a: Vague Request**
+```
+Command: "Is Arbitrum good?"
+Expected: Asks clarifying question OR provides balanced overview
+```
+
+**Test 8b: Conflicting Info**
+```
+Command: "Project X says they have airdrop but their Twitter is suspended."
+Expected: Highlights the red flag, suggests caution
+```
+
+**Test 8c: Time-Sensitive Request**
+```
+Command: "What airdrops are ending TODAY?"
+Expected: Filters by deadline, shows only urgent tasks
+```
+
+---
+
+### Quick Boundary Test Checklist
+
+```
+□ Test 5: Cold Start (No Data)       [PASS / FAIL]
+□ Test 6: Information Overload        [PASS / FAIL]
+□ Test 7: Security/Scam Detection     [PASS / FAIL]
+□ Test 8: Ambiguous Queries           [PASS / FAIL]
+
+Overall: ___/4 Passed
+```
+
+**Critical Failure Indicators:**
+- 🚨 Fabricates information when none exists
+- 🚨 Response cuts off mid-sentence (token overflow)
+- 🚨 Fails to warn about obvious scams
+- 🚨 Provides dangerous wallet interaction advice
+
+If any critical failure occurs, DO NOT deploy to production.
+
+---
+
+### Edge Case Response Templates
+
+Use these templates when encountering edge cases:
+
+**Template 1: Project Not Found**
+```
+I couldn't find reliable information about [project name]. 
+
+Possible reasons:
+- Project may not exist or is very new
+- May be misspelled
+- Could be a private/test project
+
+Suggestions:
+- Verify the project name
+- Check if they have an official Twitter
+- Wait for more public information
+```
+
+**Template 2: Suspected Scam**
+```
+⚠️ **SECURITY ALERT** ⚠️
+
+This project has been flagged for:
+- [Specific red flag 1]
+- [Specific red flag 2]
+
+Official alternatives:
+- [Official project name]: [Official URL]
+
+**DO NOT** interact with suspicious links or approve unknown contracts.
+```
+
+**Template 3: Information Overload**
+```
+Found [X] airdrop opportunities today.
+
+To prevent information overload, here are the **TOP 5 priority tasks**:
+
+1. [Project] - [Grade] - [Brief action]
+...
+
+For full details on any specific project, ask: "check [project name]"
+```
