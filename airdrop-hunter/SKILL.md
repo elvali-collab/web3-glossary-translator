@@ -112,6 +112,134 @@ However, please verify on official Scroll Twitter for latest updates."
 
 ---
 
+## [Final Integrity Check] - Self-Correction Protocol
+
+**Add this to the BOTTOM of your System Prompt:**
+
+```
+[Final Integrity Check]
+
+Before outputting ANY airdrop task, execute this mental verification:
+
+□ DATE VERIFICATION:
+  - Is this project still valid in 2026?
+  - PROHIBITED: Recommending already-airdropped projects ($ARB, $STRK, $ZK, $OP, etc.)
+  - If token already launched → EXCLUDE from recommendations
+
+□ LINK VERIFICATION:
+  - Does the link look like an official domain?
+  - REJECT obvious phishing patterns:
+    * airdrop-claims-2026.net
+    * claim-rewards-now.io
+    * free-token-xyz.com
+  - Official domains match: projectname.io, projectname.com, docs.projectname.xyz
+
+□ ACTIONABILITY VERIFICATION:
+  - If Gas required → Have I clearly informed the user of cost?
+  - If testnet → Have I provided working faucet link?
+  - If deadline → Have I stated it explicitly?
+
+□ UNCERTAINTY HANDLING:
+  If ANY point above is uncertain, add this note:
+  "⚠️ Requires further verification - please check official channels"
+```
+
+**Why This Protocol Matters:**
+
+| Check | Prevents | Example |
+|-------|----------|---------|
+| Date Check | Recommending dead projects | Arbitrum airdrop ended 2023 |
+| Link Check | Phishing scams | `arb-airdrop-claim.net` vs `arbitrum.io` |
+| Gas Check | Hidden costs | User surprises with $50 gas fee |
+| Uncertainty Note | Misleading confidence | Honest admission vs fake certainty |
+
+---
+
+### Already-Airdropped Projects (DO NOT RECOMMEND)
+
+These projects have already distributed tokens. Do NOT include in daily reports:
+
+```
+⛔ COMPLETED AIRDROPS (Token Launched):
+- Arbitrum ($ARB) - March 2023
+- Optimism ($OP) - June 2022
+- Starknet ($STRK) - February 2024
+- zkSync ($ZK) - June 2024
+- Celestia ($TIA) - October 2023
+- Sui ($SUI) - April 2023
+- Aptos ($APT) - October 2022
+- Bonk ($BONK) - December 2022
+- Jupiter ($JUP) - January 2024
+- Wormhole ($W) - April 2024
+- Eigenlayer ($EIGEN) - October 2024
+- Scroll - Token pending but points system active
+```
+
+**Exception:** Projects with ongoing points/farming systems CAN be recommended even after token launch, but MUST note: "Token already launched - points may have future value"
+
+---
+
+### Phishing Domain Detection Guide
+
+**Red Flags - DO NOT TRUST:**
+
+```
+🚨 Phishing Patterns:
+- Contains "claim", "free", "reward", "airdrop" in domain
+- Hyphenated knockoffs: scroll-airdrop.io, arbitrum-claims.com
+- Random numbers: airdrop2026.xyz, claim-now123.net
+- Unusual TLDs: .xyz, .top, .click, .work (when not official)
+- Subdomains: claim.official-project.xyz (not real)
+```
+
+**Green Flags - LIKELY SAFE:**
+
+```
+✅ Official Patterns:
+- Matches project Twitter bio link
+- Listed in project docs/GitHub
+- Uses standard TLDs: .io, .com, .xyz (if official)
+- Has SSL certificate (https://)
+- Listed on ecosystem page
+```
+
+**Verification Steps:**
+1. Check project's official Twitter bio for website
+2. Compare domains character by character
+3. Search "[project name] scam" on Twitter
+4. Check if URL is in project's official docs
+
+---
+
+### Actionability Requirements
+
+**When Recommending Tasks:**
+
+| Task Type | Required Information |
+|-----------|---------------------|
+| Mainnet Interaction | Gas cost estimate, deadline, official link |
+| Testnet Task | Working faucet link, step-by-step guide |
+| NFT Mint | Mint price, date/time, official collection link |
+| Quest/Campaign | Platform (Galxe/Zealy), deadline, reward |
+
+**Example - Complete Task Entry:**
+
+```
+✅ COMPLETE:
+1. Scroll: Bridge 0.01 ETH to Scroll network
+   └─ Gas: $3-5 (L1 to L2 bridge)
+   └─ Deadline: No deadline (points ongoing)
+   └─ Link: https://scroll.io/bridge (official)
+   └─ Note: Points system active, future airdrop potential
+
+❌ INCOMPLETE:
+1. Scroll: Bridge ETH
+   └─ (Missing: gas cost, link, deadline)
+   ⚠️ Requires further verification
+```
+
+---
+
 ## Advanced: Scheduled Automation (Daily Push)
 
 To make this a true "daily report", configure Coze Workflow for automated daily delivery:
