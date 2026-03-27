@@ -1036,3 +1036,381 @@ After deploying to production, monitor:
 - [ ] Update grading criteria if needed
 - [ ] Check for new phishing patterns
 - [ ] Gather user feedback
+
+---
+
+## Phase 4: User Simulation Testing
+
+Simulate real user scenarios to verify natural language understanding and filtering logic.
+
+### Test 13: Cost-Based Recommendation
+
+**Command:**
+```
+I only have 0.01 ETH, which project is suitable for me?
+```
+
+**Expected Behavior:**
+
+**✅ CORRECT Response:**
+```
+Based on your 0.01 ETH budget (~$30-40), here are suitable options:
+
+🧪 ZERO-COST TESTNETS (Recommended for your budget)
+1. [Project A]: Free testnet interaction
+   └─ Faucet: [URL]
+   └─ Time: 10 min
+
+2. [Project B]: Free testnet swap
+   └─ Faucet: [URL]
+   └─ Time: 15 min
+
+💰 LOW-COST MAINNET (Within your budget)
+1. [Project C]: Bridge to Layer 2
+   └─ Cost: $2-5 gas
+   └─ Potential: Grade A project
+
+⚠️ BUDGET TIP:
+- Keep 0.005 ETH reserve for future gas fees
+- Start with testnets to build transaction history
+- Consider spreading across 2-3 projects for diversification
+```
+
+**❌ WRONG Responses:**
+- Suggesting projects requiring 0.1+ ETH
+- No budget consideration at all
+- Ignoring user's financial constraints
+- No risk management advice
+
+**Evaluation Criteria:**
+```
+□ Identifies user's budget constraint
+□ Recommends projects within budget
+□ Suggests zero-cost alternatives
+□ Provides budget management tips
+□ Prioritizes testnets for low-budget users
+```
+
+---
+
+### Test 14: Tag-Based Filtering
+
+**Command:**
+```
+Give me a zero-cost testnet link.
+```
+
+**Expected Behavior:**
+
+**✅ CORRECT Response:**
+```
+Here's a zero-cost testnet opportunity:
+
+🧪 [Project Name] Testnet
+├─ Faucet: https://faucet.example.com
+├─ Network: [Testnet Name]
+├─ Time Required: ~10 minutes
+├─ Steps:
+│   1. Claim testnet tokens from faucet
+│   2. Connect wallet to [URL]
+│   3. Complete swap/bridge task
+│   4. Claim OAT/NFT reward
+│
+└─ Why Recommended:
+   - Backed by [VC names]
+   - Mainnet launch expected [date]
+   - Zero cost, potential future airdrop
+
+📌 Quick Start:
+1. Visit faucet link above
+2. Follow steps in order
+3. No real funds needed
+```
+
+**❌ WRONG Responses:**
+- Returns mainnet projects requiring gas fees
+- No direct faucet/testnet link provided
+- Generic response without actionable steps
+- Forgets to explain WHY this specific project
+
+**Evaluation Criteria:**
+```
+□ Direct faucet/testnet link provided
+□ Marked as "zero-cost" clearly
+□ Step-by-step instructions included
+□ Time estimate given
+□ Project background explained
+□ No mainnet projects suggested (user asked for zero-cost)
+```
+
+---
+
+### Test 15: Specific Project Inquiry
+
+**Command:**
+```
+What do you think about Scroll airdrop?
+```
+
+**Expected Behavior:**
+
+**✅ CORRECT Response:**
+```
+📊 Scroll Airdrop Analysis
+
+🔥 Grade: A (High Priority)
+
+💼 Background:
+- Funding: $80M (Polychain, Sequoia)
+- Stage: Mainnet live (Oct 2023)
+- TVL: $1.2B+
+
+🎯 Current Status:
+- Points system active
+- Multiple campaigns running
+- No confirmed airdrop date yet
+
+💡 Recommended Actions:
+1. Bridge ETH to Scroll: $3-5 gas
+2. Use DEXs (SyncSwap, Uniswap)
+3. Mint NFT collections
+4. Complete Galxe campaigns
+
+💰 Cost Estimate: $10-30 total
+⏰ Time Required: 2-3 hours
+📈 Airdrop Probability: High (75%+)
+
+⚠️ Risks:
+- No guaranteed airdrop
+- Opportunity cost of locked liquidity
+- Competition from sybils
+```
+
+**❌ WRONG Responses:**
+- No grading or evaluation
+- Missing action steps
+- No cost/time estimates
+- Ignores risks
+- Fabricates airdrop date
+
+**Evaluation Criteria:**
+```
+□ Project graded (S/A/B)
+□ Funding/background provided
+□ Actionable steps listed
+□ Cost and time estimated
+□ Risks clearly stated
+□ No fabricated information
+```
+
+---
+
+### Test 16: Multi-Intent Query
+
+**Command:**
+```
+I want zero-cost testnets but also interested in high-ROI mainnet projects under $10.
+```
+
+**Expected Behavior:**
+
+**✅ CORRECT Response:**
+```
+I'll provide both options for you:
+
+🧪 ZERO-COST TESTNETS (Start Here)
+1. [Project A]: [Faucet Link] | 10 min
+2. [Project B]: [Faucet Link] | 15 min
+
+💰 MAINNET UNDER $10 (High ROI Potential)
+1. [Project C]: Bridge + Swap | $5-8 gas | Grade A
+   └─ Why: Confirmed airdrop, low entry cost
+
+2. [Project D]: NFT Mint | $3-5 | Grade B
+   └─ Why: Low cost, speculative upside
+
+📊 Strategy Recommendation:
+1. Start with testnets (free, build history)
+2. Then try 1-2 low-cost mainnet projects
+3. Total budget: ~$10-15
+4. Diversify across ecosystems
+
+⚠️ Remember: Never spend more than you can afford to lose.
+```
+
+**Evaluation Criteria:**
+```
+□ Both parts of query addressed
+□ Zero-cost options provided
+□ Mainnet options under $10 provided
+□ Logical prioritization given
+□ Clear separation of categories
+```
+
+---
+
+### Test 17: Conflicting Information
+
+**Command:**
+```
+Project X's Twitter says airdrop is confirmed, but their Discord says it's not. Which is true?
+```
+
+**Expected Behavior:**
+
+**✅ CORRECT Response:**
+```
+⚠️ CONFLICTING INFORMATION DETECTED
+
+🔍 Investigation Results:
+- Twitter (@ProjectX): Posted "Airdrop confirmed" [date]
+- Discord: Mod said "No airdrop planned" [date]
+
+📊 Analysis:
+1. Twitter marketing may be misleading
+2. Discord statement is likely more accurate
+3. Official docs have no token info
+
+💡 Recommendation:
+- WAIT for official announcement
+- Check project's blog/docs for tokenomics
+- Verify team statements before interacting
+- Avoid high-cost interactions until confirmed
+
+🔐 Safety First:
+- Don't trust Twitter-only announcements
+- Cross-reference with official channels
+- When in doubt, ask in Discord with verified role
+```
+
+**Evaluation Criteria:**
+```
+□ Acknowledges conflicting information
+□ Investigates both sources
+□ Provides neutral analysis
+□ Recommends caution
+□ Suggests verification steps
+□ No biased assumption
+```
+
+---
+
+### User Simulation Test Checklist
+
+```
+□ Test 13: Cost-Based Recommendation    [PASS / FAIL]
+□ Test 14: Tag-Based Filtering          [PASS / FAIL]
+□ Test 15: Specific Project Inquiry     [PASS / FAIL]
+□ Test 16: Multi-Intent Query           [PASS / FAIL]
+□ Test 17: Conflicting Information      [PASS / FAIL]
+
+Phase 4 Score: ___/5
+```
+
+---
+
+### User Simulation Best Practices
+
+**When User Asks About Budget:**
+1. Always acknowledge their constraint
+2. Recommend options WITHIN budget
+3. Suggest zero-cost alternatives first
+4. Provide budget management tips
+5. Never recommend over-budget options
+
+**When User Requests Specific Tags:**
+1. Filter results by requested tag (zero-cost, testnet, etc.)
+2. Provide direct links immediately
+3. Include step-by-step instructions
+4. Add time/cost estimates
+5. Explain WHY it matches their request
+
+**When User Asks About Specific Project:**
+1. Provide comprehensive analysis
+2. Include grade, funding, status
+3. List actionable steps
+4. Mention risks and probability
+5. Don't fabricate information
+
+**When User Has Multiple Intents:**
+1. Address EACH part of the query
+2. Use clear section headers
+3. Provide strategy/recommendation
+4. Help user prioritize
+5. Consider their constraints
+
+---
+
+## Complete Testing Framework Summary
+
+```
+===============================================
+AIRDROP HUNTER - FULL TEST FRAMEWORK (17 Tests)
+===============================================
+
+Phase 1: Functionality Testing (4 tests)
+□ Test 1: Search Capability
+□ Test 2: Link Reader
+□ Test 3: Format Compliance
+□ Test 4: Edge Cases
+Phase 1 Score: ___/4
+
+Phase 2: Boundary & Stress Testing (4 tests)
+□ Test 5: Cold Start (No Data)
+□ Test 6: Information Overload
+□ Test 7: Security/Scam Detection
+□ Test 8: Ambiguous Queries
+Phase 2 Score: ___/4
+
+Phase 3: Automation Workflow (4 tests)
+□ Test 9: Manual Trigger
+□ Test 10: Variable Passing
+□ Test 11: Scheduled Timing
+□ Test 12: Output Delivery
+Phase 3 Score: ___/4
+
+Phase 4: User Simulation (5 tests)
+□ Test 13: Cost-Based Recommendation
+□ Test 14: Tag-Based Filtering
+□ Test 15: Specific Project Inquiry
+□ Test 16: Multi-Intent Query
+□ Test 17: Conflicting Information
+Phase 4 Score: ___/5
+
+===============================================
+TOTAL SCORE: ___/17 PASSED
+===============================================
+
+Deployment Recommendation:
+✅ 17/17: Production ready, excellent quality
+✅ 14-16/17: Production ready, minor improvements needed
+⚠️ 10-13/17: Testing needed, not recommended for production
+🚨 <10/17: Critical issues, requires major fixes
+===============================================
+```
+
+---
+
+## Quick Reference: Test Commands
+
+```bash
+# Phase 1: Functionality
+"Search for latest airdrop tasks about Linea or Scroll in the past 24 hours."
+"Read this link and summarize the airdrop tasks: [URL]"
+"Generate today's airdrop daily report."
+
+# Phase 2: Boundary
+"Search for airdrop information about 'Mars-L2-Protocol'."
+"Summarize ALL airdrop tasks across the entire web today."
+"Is this project safe? [suspicious URL]"
+
+# Phase 3: Automation (Manual workflow test)
+# Navigate to Workflow editor → Click "Run"
+
+# Phase 4: User Simulation
+"I only have 0.01 ETH, which project is suitable for me?"
+"Give me a zero-cost testnet link."
+"What do you think about Scroll airdrop?"
+"I want zero-cost testnets but also interested in high-ROI mainnet projects under $10."
+"Project X's Twitter says airdrop confirmed but Discord says no. Which is true?"
+```
