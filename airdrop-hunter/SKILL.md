@@ -52,6 +52,123 @@ dependency:
 
 ---
 
+## Advanced: Scheduled Automation (Daily Push)
+
+To make this a true "daily report", configure Coze Workflow for automated daily delivery:
+
+### Workflow Setup: Daily_Airdrop_Push
+
+**Create a new workflow with the following nodes:**
+
+```
+┌─────────────────┐
+│  Start Node     │ → Scheduled Trigger: Every day at 10:00 AM
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Search Node    │ → Auto-search daily keywords
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  AI Node        │ → Aggregate into daily report format
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  End Node       │ → Output to chat or Telegram via Webhook
+└─────────────────┘
+```
+
+### Node Configuration Details
+
+#### 1. Start Node: Scheduled Trigger
+```
+Trigger Type: Scheduled
+Schedule: Daily
+Time: 10:00 AM (configurable to your timezone)
+Timezone: UTC+8 (adjust as needed)
+```
+
+#### 2. Search Node: Multi-Query Search
+```
+Plugin: Google Search / Bing Search
+
+Queries to execute:
+1. "airdrop alpha" [current_date] crypto
+2. "testnet checklist" latest
+3. "galxe campaign" active OR live
+4. site:x.com "airdrop" after:24h
+
+Output: List of URLs and snippets
+```
+
+#### 3. AI Node: Report Generation
+```
+Prompt Template:
+"You are the Airdrop Hunter agent. Based on the search results below, generate a daily airdrop report following this format:
+
+📅 [DATE] Airdrop Daily Report
+
+🔥 TOP PRIORITY (Grade S/A)
+[Project]: [Action] | [Cost] | [Deadline]
+
+🧪 ZERO-COST TESTNETS (Grade B)
+[Project]: [Faucet] | [Time]
+
+📅 TODAY'S DEADLINES
+[Deadlines list]
+
+⚠️ SECURITY ALERTS
+[Warnings]
+
+Search Results:
+{search_results}"
+
+Output: Formatted daily report
+```
+
+#### 4. End Node: Delivery Options
+```
+Option A: Direct Chat Output
+- Output the report directly to the Coze chat interface
+- Users can view in the conversation history
+
+Option B: Telegram Push (via Webhook)
+- Configure Telegram Bot API
+- Webhook URL: https://api.telegram.org/bot[TOKEN]/sendMessage
+- Payload:
+  {
+    "chat_id": "[CHANNEL_ID]",
+    "text": "{daily_report}",
+    "parse_mode": "Markdown"
+  }
+
+Option C: Discord Webhook
+- Webhook URL: [Your Discord channel webhook]
+- Format: Embed with fields for each section
+```
+
+### Workflow Test Checklist
+```
+□ Start node triggers at scheduled time
+□ Search node returns relevant results
+□ AI node generates properly formatted report
+□ End node delivers to chosen destination
+□ Verify report content quality
+□ Check timezone is correct
+```
+
+### Alternative: Manual Trigger
+If scheduled automation is not available, users can manually trigger:
+```
+User types: "daily report"
+Skill executes: Full search → Generate report → Display
+```
+
+---
+
 ## Core Features
 
 ### 1. Network-Wide Scanning
