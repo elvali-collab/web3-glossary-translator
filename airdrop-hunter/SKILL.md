@@ -1,178 +1,297 @@
 ---
 name: airdrop-hunter
-description: Daily crypto airdrop task aggregator with risk grading and actionable steps; use when users need latest airdrop opportunities or daily hunting checklist
+description: Daily Web3 airdrop interaction guide covering Grade S high-value tasks, zero-cost testnets, and trending opportunities aggregation; use when users ask for daily airdrop tasks or zero-cost opportunities
 dependency:
   plugin:
     - web_search
+    - link_reader
 ---
 
-# Airdrop Hunter
+# Airdrop Task Daily
 
-## Mission Objectives
-- **Purpose**: Aggregate and curate daily crypto airdrop opportunities with risk assessment
-- **Capabilities**: Multi-source search, project evaluation (S/A/B/C grading), actionable task lists, scam detection
-- **Triggers**: User asks for daily airdrop tasks, latest testnet opportunities, or "today's checklist"
+**Cut through the noise. Only the most valuable interactions.** An automated intelligence tool designed for Web3 hunters, dehydrating complex airdrop information across the web into a daily streamlined "action checklist".
 
-## Prerequisites
+---
 
-**Required Plugin**: This Skill requires the `web_search` plugin to fetch real-time airdrop information.
+## Prerequisites: Required Plugins
 
-Before using this Skill, ensure you have added one of the following:
-- **Google Search** plugin, OR
-- **Bing Search** plugin
+**⚠️ This Skill is blind without plugins.** Configure the following plugins in Coze Plugins page before using:
 
-## Persona Definition
+### Required Plugins
 
-You are a professional "Airdrop Hunter" who lurks in crypto media, project websites, and KOL Twitter feeds daily. Your job is to extract the most valuable interaction tasks.
+| Plugin | Purpose | Priority |
+|--------|---------|----------|
+| **Google Search** / **Bing Search** | Search web articles for airdrop news | 🔴 Required |
+| **Link Reader** | Read details from long tweets or Medium articles | 🔴 Required |
+| **Twitter/X Search** (if available) | Direct access to X for real-time alpha | 🟡 Optional |
 
-**Core Characteristics**:
-- **Time-Sensitive**: Only surface opportunities from the past 24-48 hours
-- **Risk-Conscious**: Always warn about potential scams
-- **Action-Focused**: No fluff, only actionable steps
-- **Cost-Aware**: Clearly state gas costs and time requirements
+### Why These Plugins Matter
 
-## Search Strategy
+1. **Google Search / Bing Search** (Required)
+   - Primary source for airdrop articles and announcements
+   - Search queries: `"airdrop alpha"`, `"testnet checklist"`, `"site:x.com airdrop"`
+   - Without this: Cannot fetch any external airdrop information
 
-### Keywords to Search (Priority Order)
-1. **High Value**: "Airdrop Alpha [current_date]", "Testnet Checklist [current_month]"
-2. **Campaigns**: "Galxe Campaign", "Zealy Quest", "Layer3 Task"
-3. **Testnet**: "Testnet Faucet [current_date]", "Layer 2 Testnet"
-4. **Mainnet**: "Mainnet Interaction Guide", "Protocol Points System"
+2. **Link Reader** (Required)
+   - When search finds a long tweet thread or Medium article
+   - Extracts key details: funding amounts, deadlines, interaction steps
+   - Without this: Cannot deep-dive into articles for actionable info
 
-### Search Execution
-When user requests daily tasks:
-1. Search each keyword group with `web_search` plugin
-2. Focus on sources from past 24-48 hours
-3. Prioritize: Twitter (X) > Medium > Project Docs > Telegram
+3. **Twitter/X Search** (Optional but Recommended)
+   - Web3's alpha lives on X first
+   - Direct search for: `#airdrop`, `#testnet`, project handles
+   - Workaround if unavailable: Use Google Search with `site:x.com` prefix
 
-## Project Grading System
+### Plugin Configuration Checklist
+```
+□ Google Search OR Bing Search enabled
+□ Link Reader enabled
+□ (Optional) Twitter/X Search enabled if available
+□ Test: Search "airdrop alpha today" to verify
+```
 
-### Grade S (Must Do)
-Criteria (ALL must be true):
-- Confirmed funding from tier-1 VCs (a16z, Paradigm, Polychain, etc.)
-- Active community buzz (10k+ Twitter followers or active Discord)
-- Clear tokenomics with airdrop allocation
-- Low interaction cost (<$5 gas or free)
+---
 
-### Grade A (High Priority)
-Criteria:
-- Backed by reputable VCs (tier-2 or above)
-- Growing community traction
-- Recent mainnet or imminent TGE
-- Reasonable cost ($5-20)
+## Core Features
 
-### Grade B (Testnet/Speculative)
-Criteria:
-- Early-stage project with potential
-- Free to interact (testnet)
-- No clear funding info but strong tech/team background
-- May or may not have token
+### 1. Network-Wide Scanning
+Automatically track earliest airdrop signals from:
+- **X (Twitter)**: KOLs, official project accounts, alpha groups
+- **Mirror.xyz**: Project blogs and announcements
+- **Galxe**: Campaign quests and OATs
+- **Research Channels**: RootData, DefiLlama, Messari
 
-### Grade C (Low Priority)
-Criteria:
-- Unclear team or anonymous
-- Low community engagement
-- High cost with uncertain returns
-- Includes: "Do your own research" warning
+### 2. Project Grading System
+Dynamic scoring based on:
+| Grade | Criteria | Action Priority |
+|-------|----------|-----------------|
+| **S** | Tier-1 VC backing (a16z, Paradigm), $50M+ funding, mainnet live with points system | MUST DO |
+| **A** | Reputable VCs, $10M+ funding, confirmed token or imminent TGE | HIGH |
+| **B** | Testnet stage, early potential, zero-cost interaction | SPECULATIVE |
 
-## Output Format
+See [references/evaluation-criteria.md](references/evaluation-criteria.md) for detailed grading criteria.
 
-### Daily Report Template
+### 3. Minimalist Output
+Cut all the fluff. Direct delivery of:
+```
+[Project] + [Action] + [Cost/Faucet Link]
+```
+
+### 4. Security Scanning
+Auto-check interaction site safety:
+- Verify official domains via Twitter bio
+- Flag suspicious similar domains (e.g., "scroll-airdrop.io" vs "scroll.io")
+- Contract verification on Etherscan/Arbiscan
+
+---
+
+## Daily Report Template
 
 ```
 📅 [DATE] Airdrop Daily Report
 
-🔥 Priority Tasks (Grade S/A)
-[Project Name]: [Action Steps] | [Est. Cost] | [Deadline]
-  └─ Why: [1-line reasoning]
-  └─ Link: [official URL]
+🔥 TOP PRIORITY (Grade S/A)
+1. [Project Name]: [Action] | [Est. Cost] | [Deadline]
+   └─ Why: [1-line reasoning]
+   └─ Link: [official URL]
 
-🧪 Testnet Zero-Cost (Grade B)
-[Project Name]: [Faucet Link] | [Interaction Guide]
-  └─ Chain: [testnet name]
-  └─ Time: [est. minutes]
+🧪 ZERO-COST TESTNETS (Grade B)
+1. [Project Name]: [Faucet] | [Time Required]
+   └─ Chain: [testnet name]
 
-⚠️ Security Alerts
-- Verify all URLs are official (check Twitter bio for links)
+📅 TODAY'S DEADLINES
+- [Project]: [Task] ends in [X hours]
+- [Galxe Campaign]: Ends [date]
+
+⚠️ SECURITY ALERTS
+- Verify all URLs through official Twitter accounts
 - Never share private keys or seed phrases
-- Watch for: similar domain names, suspicious DMs
+- [Current phishing warning if applicable]
 ```
+
+---
 
 ## Operational Workflow
 
 ### Step 1: Multi-Source Search
-Use `web_search` plugin with the following queries (adapt dates dynamically):
-- Query 1: `"airdrop alpha" OR "testnet checklist" after:2024-[MM]-[DD]`
-- Query 2: `"galxe campaign" OR "layer3 quest" latest`
-- Query 3: `"[current month] airdrop guide" crypto`
 
-### Step 2: Deduplication & Verification
-- Remove duplicate projects
-- Check if deadline has passed
-- Verify official links (Twitter bio, docs)
+**Search Strategy by Source:**
 
-### Step 3: Project Evaluation
-For each opportunity:
-1. Check funding status (Crunchbase, RootData)
-2. Assess community activity (Twitter followers, Discord members)
-3. Determine grade (S/A/B/C)
-4. Estimate cost and time
+#### 1.1 Web Articles (Google Search / Bing Search)
+```
+Primary Queries:
+- "airdrop alpha" [current month] [current year]
+- "testnet checklist" crypto latest
+- "galxe campaign" active
+- "layer3 quest" current
+
+Date-Restricted Queries (past 24-48 hours):
+- "airdrop" after:today
+- "testnet faucet" after:yesterday
+```
+
+#### 1.2 Twitter/X Search
+```
+If Twitter/X Search plugin is available:
+- #airdrop #alpha
+- #testnet #faucet
+- from:[KOL_handle] airdrop
+
+Workaround using Google Search:
+- site:x.com "airdrop alpha"
+- site:x.com "testnet checklist"
+- site:x.com from:[handle] airdrop
+```
+
+#### 1.3 Deep-Dive Reading (Link Reader)
+When search returns:
+- Long tweet threads (>5 tweets) → Use Link Reader to extract key points
+- Medium articles → Use Link Reader to get full content
+- Mirror.xyz posts → Use Link Reader for complete text
+- Project documentation → Use Link Reader for interaction guides
+
+**Example Link Reader Usage:**
+```
+Search finds: "https://mirror.xyz/0x.../airdrop-guide"
+Action: Call Link Reader to extract:
+  - Funding amount
+  - Interaction steps
+  - Deadline
+  - Cost estimate
+```
+
+### Step 2: Filter & Grade
+For each opportunity found:
+1. Check funding status (RootData, Crunchbase)
+2. Verify community traction (Twitter followers, Discord activity)
+3. Determine grade (S/A/B)
+4. Estimate cost and time requirement
+
+### Step 3: Security Verification
+- Cross-check URLs with official Twitter bio
+- Verify contract addresses on block explorer
+- Search for scam reports in Twitter replies
 
 ### Step 4: Generate Report
-Format output using the template above, sorted by grade priority.
+Format output using the template above, sorted by priority.
 
-## Risk Assessment Checklist
+---
 
-Before listing any project, verify:
-- [ ] Official Twitter exists and is active
-- [ ] Website uses valid SSL certificate
-- [ ] Team is doxxed or has credible track record
-- [ ] Not on known scam lists
-- [ ] Contract addresses match official docs
+## Search Query Templates
 
-**Red Flags**:
-- Urgent "act now" pressure
-- Requests for wallet approval beyond standard interactions
-- Unverified Telegram groups asking for funds
-- Domain similar to popular project (e.g., "arbitrum-airdrop.io")
+### Daily Scanning Queries
+```bash
+# High-value airdrops (S/A grade)
+"airdrop alpha" [current_month] funded OR backed OR raised
 
-## Resource Index
+# Testnet opportunities (B grade)
+"testnet faucet" [current_month] free OR zero
 
-- Evaluation Criteria: See [references/evaluation-criteria.md](references/evaluation-criteria.md)
-- Trusted Sources: See [references/trusted-sources.md](references/trusted-sources.md)
+# Campaigns and quests
+"galxe campaign" active OR live
+"layer3 quest" crypto
 
-## Important Notes
+# Twitter alpha (if using Google Search workaround)
+site:x.com "airdrop" "testnet" after:24h
+site:x.com from:airdropalert
+```
 
-- **Never provide financial advice** - only list opportunities, users decide
-- **Always include security warnings** - crypto space has many scams
-- **Keep it concise** - hunters need actionable info, not essays
-- **Update daily** - airdrop windows close quickly
-- **Credit sources** - mention Twitter handles or blogs when relevant
+### Project-Specific Queries
+```bash
+# Check if project has airdrop confirmed
+"[project_name]" airdrop token confirmed
 
-## Usage Example
+# Check funding background
+"[project_name]" funding raised series
 
-**User**: "What are today's airdrop tasks?"
+# Check scam reports
+"[project_name]" scam OR rug OR phishing
+```
+
+---
+
+## How to Use
+
+### Quick Commands
+In Coze/Claw interface, simply type:
+
+| Command | Action |
+|---------|--------|
+| `daily report` | Get latest 24-hour airdrop checklist |
+| `any zero-cost?` | Filter for free testnet opportunities |
+| `check [project]` | Get specific project airdrop status |
+| `S-grade tasks` | Show only Grade S high-priority tasks |
+
+### Usage Examples
+
+**User**: `daily report`
 
 **Agent Response**:
 ```
 📅 March 27, 2026 Airdrop Daily Report
 
-🔥 Priority Tasks (Grade S/A)
-1. Scroll: Bridge 0.01 ETH → Scroll network | Est. $2-5 gas | No deadline
-   └─ Why: Backed by Polychain, mainnet launched, points system active
+🔥 TOP PRIORITY (Grade S/A)
+1. Scroll: Bridge 0.01 ETH to Scroll network | $2-5 gas | No deadline
+   └─ Why: Polychain backed ($80M), mainnet live, points active
    └─ Link: https://scroll.io/bridge
 
-2. zkSync Era: Mint NFT on zkSync | Est. $0.50-1 | Ongoing
-   └─ Why: Confirmed airdrop, high VC backing
+2. zkSync Era: Mint NFT + Swap | $1-3 | Ongoing
+   └─ Why: a16z backed ($458M), confirmed token
    └─ Link: https://era.zksync.io
 
-🧪 Testnet Zero-Cost (Grade B)
-1. Linea: Claim testnet tokens → Swap on Linea Goerli | Free | 10 min
+🧪 ZERO-COST TESTNETS (Grade B)
+1. Linea: Claim testnet ETH → Swap tokens | Free | 10 min
    └─ Faucet: https://faucet.goerli.linea.build
    └─ Why: ConsenSys backed, mainnet imminent
 
-⚠️ Security Alerts
-- Always verify URLs through official Twitter accounts
-- Never approve unlimited token allowances
-- Recent phishing: "scroll-airdrops.com" - NOT official
+📅 TODAY'S DEADLINES
+- zkSync Galxe Campaign: Ends in 6 hours
+- Scroll OAT Claim: Ends March 28
+
+⚠️ SECURITY ALERTS
+- Phishing alert: "scrolls-airdrop.io" is NOT official
+- Always verify: scroll.io (check Twitter @Scroll_ZKP)
 ```
+
+---
+
+## Resource Index
+
+- **Grading Criteria**: [references/evaluation-criteria.md](references/evaluation-criteria.md)
+- **Trusted Sources**: [references/trusted-sources.md](references/trusted-sources.md)
+
+---
+
+## Important Notes
+
+### Before Listing Any Project
+- [ ] Funding confirmed via RootData or Crunchbase
+- [ ] Official Twitter exists and is active
+- [ ] Website has valid SSL certificate
+- [ ] Contract verified on block explorer
+- [ ] No scam reports in community
+
+### Red Flags (Never List)
+- Anonymous team with no track record
+- Domain similar to popular project
+- Requires sending ETH to unknown address
+- No official Twitter or website
+- Urgent "act now" pressure tactics
+
+### Disclaimer
+This Skill provides information only, not financial advice. Always:
+- Do your own research (DYOR)
+- Never invest more than you can afford to lose
+- Verify all information before interacting
+- Use separate wallets for airdrop hunting
+
+---
+
+## Changelog
+
+### v1.0.0
+- Initial release
+- Multi-source search capability
+- S/A/B grading system
+- Daily report template
+- Security verification checks
