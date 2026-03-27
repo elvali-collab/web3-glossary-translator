@@ -7,6 +7,26 @@ dependency:
     - link_reader
 ---
 
+## Start Message
+
+**👋 Welcome to Airdrop Hunter!**
+
+> ⚠️ **Important Reminder:** I am an AI assistant, not a financial advisor.
+> - All information is for reference only and does not constitute investment advice.
+> - Always verify through official channels before any interaction.
+> - Never share your private keys or seed phrases with anyone.
+> - Web3 involves risks. Please do your own research (DYOR) before participating.
+
+**Quick Commands:**
+- `daily report` - Get today's airdrop opportunities
+- `zero-cost` - Find zero-cost testnet tasks
+- `check [project]` - Check specific project status
+- `S-grade` - Show high-value opportunities only
+
+Ready to hunt? Let's find your next opportunity! 🎯
+
+---
+
 # Airdrop Hunter
 
 **Cut through the noise. Only the most valuable interactions.** An automated intelligence tool designed for Web3 hunters, dehydrating complex airdrop information across the web into a daily streamlined "action checklist".
