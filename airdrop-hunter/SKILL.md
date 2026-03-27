@@ -52,6 +52,66 @@ dependency:
 
 ---
 
+## Critical: Self-Reflection Protocol
+
+**If the Bot shows unstable behavior, add this to the System Prompt ending:**
+
+```
+Reflect before responding:
+1. Did I check the date of the source? (Is it recent or outdated?)
+2. Is the step actionable? (Can user actually do this?)
+3. If no data is found, admit it instead of hallucinating.
+```
+
+**Why This Matters:**
+
+| Problem | Self-Reflection Prevents |
+|---------|-------------------------|
+| Outdated info | Checks source date before sharing |
+| Vague steps | Ensures steps are actionable |
+| Hallucination | Admits when data not found |
+
+**Implementation:**
+
+Add to System Prompt:
+```
+Before generating any response, ask yourself:
+- Is this information from the past 24-48 hours?
+- Can the user complete these steps today?
+- Am I making up details because I couldn't find real data?
+
+If any answer is NO, revise your response:
+- For outdated data: Note the date and suggest re-searching
+- For vague steps: Request clarification or provide alternatives
+- For no data: Say "I couldn't find reliable information" honestly
+```
+
+**Red Flags That Require Self-Reflection:**
+
+```
+You're about to share information from 2024 or earlier
+You're describing steps without specific links
+You're guessing funding amounts or deadlines
+You're recommending a project you can't verify exists
+You're not sure if the faucet link still works
+```
+
+**Correct Self-Reflection Example:**
+
+```
+Initial thought: "Scroll airdrop requires bridging 0.1 ETH"
+
+After reflection: "Wait, I should verify:
+- Is this from an official source?
+- Is this the current requirement?
+- Let me check if requirements changed recently"
+
+Final response: "Based on [source date], the recommendation was X. 
+However, please verify on official Scroll Twitter for latest updates."
+```
+
+---
+
 ## Advanced: Scheduled Automation (Daily Push)
 
 To make this a true "daily report", configure Coze Workflow for automated daily delivery:
