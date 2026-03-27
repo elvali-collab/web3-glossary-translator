@@ -52,6 +52,102 @@ dependency:
 
 ---
 
+## Core Feature: Scam Alert System
+
+**This Skill automatically detects and warns about the following risks based on search results:**
+
+### 1. Fake Claim Websites
+
+**Detection Pattern:**
+```
+⚠️ Phishing Alert: Watch for [project-airdrop-claim.xyz] and similar fake domains
+✅ Official Domain: [project.io] (verify from Twitter bio)
+```
+
+**Common Phishing Patterns:**
+- Hyphenated knockoffs: `scroll-airdrop.io`, `arbitrum-claims.com`
+- Action words in domain: `claim-`, `free-`, `reward-`, `airdrop-`
+- Unusual TLDs: `.xyz`, `.top`, `.click`, `.work` (when not official)
+- Number patterns: `airdrop2026.xyz`, `claim-now123.net`
+
+**Verification Rule:**
+- Always compare with official domain from project's Twitter bio
+- Character-by-character domain check
+- Reject if domain contains suspicious patterns above
+
+---
+
+### 2. Social Engineering Scams
+
+**Detection Pattern:**
+```
+⚠️ Telegram/DM Scam Alert: "You won [X] airdrop, click link to claim"
+✅ Official projects NEVER send claim links via DM
+✅ Official projects NEVER ask for gas fees or private keys in DM
+```
+
+**Red Flags:**
+- Unsolicited DM claiming "you won" or "eligible for airdrop"
+- Request to click a link to "claim" or "connect wallet"
+- Request for gas fee payment or private key
+- Impersonation of official support accounts
+
+**Safe Behavior:**
+- Never click links from unknown Telegram users
+- Never share private keys or seed phrases
+- Verify announcements only from official Twitter/Discord
+- Block and report suspicious DMs
+
+---
+
+### 3. Fake Token Scams
+
+**Detection Pattern:**
+```
+⚠️ Counterfeit Token Alert: "XXX" token exists on DEX but is NOT the official token
+✅ Official [Project] token is listed on: Binance, OKX, Bybit, Coinbase, etc.
+```
+
+**Scam Pattern:**
+- Token with same/similar name on DEX before official launch
+- Liquidity pool with suspicious contract address
+- No verification on CoinGecko/CoinMarketCap
+- Only tradable on obscure DEXes
+
+**Verification Rule:**
+- Check if token is listed on major exchanges (Binance, OKX, Bybit, Coinbase)
+- Verify contract address on official website
+- Check CoinGecko/CoinMarketCap for official listing
+- Reject tokens that only exist on DEX without major exchange listing
+
+---
+
+### Auto-Warning Output Format
+
+When any risk is detected, this Skill will include a **Scam Alert Section** in the response:
+
+```markdown
+## ⚠️ SCAM ALERT - CRITICAL WARNINGS
+
+### Fake Claim Website Detected
+⚠️ Phishing Alert: [list suspicious domains]
+✅ Official Domain: [verified official domain]
+
+### Social Scam Warning
+⚠️ Beware of Telegram/DM messages: "You won [X] airdrop, click link to claim"
+✅ Official projects NEVER send claim links via private message
+✅ Official projects NEVER ask for gas fees or private keys
+
+### Fake Token Warning
+⚠️ Counterfeit token "[XXX]" exists on DEX, NOT affiliated with [Project]
+✅ Official token listed on: [Binance, OKX, Bybit, etc.]
+
+---
+Proceed with caution. Always verify through official channels.
+```
+
+---
+
 ## Critical: Self-Reflection Protocol
 
 **If the Bot shows unstable behavior, add this to the System Prompt ending:**
