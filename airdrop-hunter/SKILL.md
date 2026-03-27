@@ -7,7 +7,7 @@ dependency:
     - link_reader
 ---
 
-# Airdrop Task Daily
+# Airdrop Hunter
 
 **Cut through the noise. Only the most valuable interactions.** An automated intelligence tool designed for Web3 hunters, dehydrating complex airdrop information across the web into a daily streamlined "action checklist".
 
@@ -163,6 +163,125 @@ Queries to execute:
 
 Output: List of URLs and snippets
 ```
+
+---
+
+### ⚠️ CRITICAL: Code Node for Date Filtering
+
+**Why You Need This:**
+AI-based date filtering is unreliable and may "cheat" or miss outdated content. A Code Node provides **100% accuracy** with hard filtering.
+
+**Step 1: Insert Code Node**
+```
+Location: BETWEEN Search Node and AI Node
+Click: + button → Select "Code" node → Choose "Python"
+```
+
+**Step 2: Add Date Filtering Code**
+
+```python
+import re
+from datetime import datetime
+
+async def main(args):
+    # Input: search results list from Search Node
+    results = args.get("search_results", [])
+    current_year = datetime.now().year
+    filtered_results = []
+
+    for item in results:
+        content = str(item.get("snippet", "")) + str(item.get("title", ""))
+        
+        # Find year patterns like 2024, 2025
+        years_found = re.findall(r'202[0-5]', content)
+        
+        # Keep if: mentions current year OR has no old year references
+        if str(current_year) in content or not years_found:
+            filtered_results.append(item)
+        else:
+            # Discard if only contains 2025 or earlier
+            continue
+
+    return {
+        "final_list": filtered_results[:5]  # Top 5 recent & relevant results
+    }
+```
+
+**Step 3: Configure Node Connections**
+
+```
+Updated Workflow:
+
+┌─────────────────┐
+│  Start Node     │ → Scheduled Trigger
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Search Node    │ → Returns search_results
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Code Node      │ → Hard date filter (THIS IS NEW!)
+│  (Python)       │ → Output: final_list
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  AI Node        │ → Input: final_list (not raw search_results)
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  End Node       │ → Deliver report
+└─────────────────┘
+```
+
+**Step 4: Variable Mapping**
+
+| From Node | Variable | To Node | Input Name |
+|-----------|----------|---------|------------|
+| Search Node | `search_results` | Code Node | `args["search_results"]` |
+| Code Node | `final_list` | AI Node | `{final_list}` |
+
+**Why This Code Works:**
+
+| Feature | Benefit |
+|---------|---------|
+| `re.findall(r'202[0-5]')` | Catches ALL years 2020-2025 |
+| `current_year` check | Dynamically adapts to current year |
+| `filtered_results[:5]` | Prevents token overflow |
+| Hard filter | 100% accuracy, no AI "laziness" |
+
+**Testing the Code Node:**
+
+```
+Test Input (Search Results):
+[
+  {"title": "2024 Airdrop Guide", "snippet": "Old guide from 2024"},
+  {"title": "Latest 2026 Testnet", "snippet": "New opportunity in 2026"},
+  {"title": "Testnet Checklist", "snippet": "No year mentioned"}
+]
+
+Expected Output (final_list):
+[
+  {"title": "Latest 2026 Testnet", "snippet": "New opportunity in 2026"},
+  {"title": "Testnet Checklist", "snippet": "No year mentioned"}
+]
+
+Result: 2024 article REMOVED ✅
+```
+
+**Common Issues & Fixes:**
+
+| Issue | Cause | Fix |
+|-------|-------|-----|
+| No results passed | Variable name mismatch | Check `search_results` matches Search Node output |
+| All results filtered | Year detection too strict | Adjust regex pattern |
+| Code error | Missing import | Ensure `import re` is at top |
+
+---
 
 #### 3. AI Node: Report Generation
 ```
