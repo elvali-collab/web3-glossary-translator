@@ -1652,7 +1652,7 @@ Phase 4 Score: ___/5
 
 ```
 ===============================================
-AIRDROP HUNTER - FULL TEST FRAMEWORK (17 Tests)
+AIRDROP HUNTER - FULL TEST FRAMEWORK (28 Tests)
 ===============================================
 
 Phase 1: Functionality Testing (4 tests)
@@ -1676,27 +1676,489 @@ Phase 3: Automation Workflow (4 tests)
 □ Test 12: Output Delivery
 Phase 3 Score: ___/4
 
-Phase 4: User Simulation (5 tests)
-□ Test 13: Cost-Based Recommendation
-□ Test 14: Tag-Based Filtering
-□ Test 15: Specific Project Inquiry
-□ Test 16: Multi-Intent Query
-□ Test 17: Conflicting Information
-Phase 4 Score: ___/5
+Phase 5: Integration Testing (4 tests)
+□ Test 18: End-to-End Workflow
+□ Test 19: Plugin Failure Recovery
+□ Test 20: Rate Limiting Handling
+□ Test 21: Concurrent Request Handling
+Phase 5 Score: ___/4
+
+Phase 6: Production Readiness (7 tests)
+□ Test 22: Data Freshness Validation
+□ Test 23: False Positive Detection
+□ Test 24: Language & Tone Consistency
+□ Test 25: Memory & Context Retention
+□ Test 26: Output Formatting Edge Cases
+□ Test 27: Security Stress Test
+□ Test 28: Code Node Integration
+Phase 6 Score: ___/7
 
 ===============================================
-TOTAL SCORE: ___/17 PASSED
+TOTAL SCORE: ___/28 PASSED
 ===============================================
 
 Deployment Recommendation:
-✅ 17/17: Production ready, excellent quality
-✅ 14-16/17: Production ready, minor improvements needed
-⚠️ 10-13/17: Testing needed, not recommended for production
-🚨 <10/17: Critical issues, requires major fixes
+✅ 28/28: Production ready, enterprise-grade quality
+✅ 25-27/28: Production ready, minor improvements needed
+⚠️ 20-24/28: Testing needed, not recommended for production
+🚨 <20/28: Critical issues, requires major fixes
 ===============================================
 ```
 
 ---
+
+## Phase 5: Integration Testing
+
+Test all components working together as a complete system.
+
+### Test 18: End-to-End Workflow
+
+**Command:**
+```
+Generate today's daily airdrop report with all checks.
+```
+
+**Test Flow:**
+```
+1. Search Node → Fetches 10 results
+2. Code Node → Filters to 5 recent results
+3. AI Node → Generates formatted report
+4. End Node → Delivers to destination
+```
+
+**Verification Checklist:**
+```
+□ Search returns results within 10 seconds
+□ Code Node filters out 2024-2025 content
+□ AI Node generates all 5 required sections
+□ Report includes at least 3 valid projects
+□ All links are clickable/valid
+□ No broken Markdown formatting
+□ Execution completes in < 60 seconds total
+```
+
+**Pass Criteria:**
+- All 4 nodes execute successfully
+- Report quality meets standards
+- No errors in execution logs
+
+---
+
+### Test 19: Plugin Failure Recovery
+
+**Simulate:** Disable one plugin temporarily
+
+**Test Case A: Search Plugin Disabled**
+```
+Command: "Find airdrop tasks"
+Expected: "Unable to search. Please enable Google Search or Bing Search plugin."
+```
+
+**Test Case B: Link Reader Disabled**
+```
+Command: "Read details of [article URL]"
+Expected: "Unable to read article content. Please enable Link Reader plugin."
+```
+
+**Verification Checklist:**
+```
+□ Graceful error message shown
+□ Does NOT crash or hang
+□ Suggests solution to user
+□ Logs show clear error indication
+```
+
+---
+
+### Test 20: Rate Limiting Handling
+
+**Command:** Execute 10 rapid requests in succession
+
+**Expected Behavior:**
+```
+Request 1-5: Normal responses
+Request 6-10: May see rate limiting
+
+Correct handling:
+- "Search temporarily limited, please wait 30 seconds"
+- NOT: Empty response or crash
+```
+
+**Verification Checklist:**
+```
+□ Rate limit message is user-friendly
+□ System recovers automatically after cooldown
+□ No data corruption
+□ Logs show rate limit event
+```
+
+---
+
+### Test 21: Concurrent Request Handling
+
+**Simulate:** Multiple users requesting reports simultaneously
+
+**Test Setup:**
+```
+User A: "daily report"
+User B: "zero-cost testnets"
+User C: "check Scroll airdrop"
+```
+
+**Expected Behavior:**
+```
+□ Each user receives correct response
+□ No cross-contamination between requests
+□ All responses properly formatted
+□ No timeout errors
+```
+
+---
+
+## Phase 6: Production Readiness Testing
+
+Final validation before deployment.
+
+### Test 22: Data Freshness Validation
+
+**Command:**
+```
+Show me the date of your most recent airdrop information.
+```
+
+**Expected Response:**
+```
+✅ CORRECT:
+"My most recent search was conducted on [current date].
+The latest airdrop opportunities are from the past 24-48 hours."
+
+❌ WRONG:
+- Cannot determine date
+- Information is clearly outdated
+- No date mentioned
+```
+
+**Verification Checklist:**
+```
+□ Date is within past 48 hours
+□ User can see when data was fetched
+□ Outdated data is flagged
+```
+
+---
+
+### Test 23: False Positive Detection
+
+**Command:**
+```
+Is there an airdrop for Bitcoin? (There is no Bitcoin airdrop)
+```
+
+**Expected Response:**
+```
+✅ CORRECT:
+"There is no Bitcoin airdrop. Bitcoin is already fully distributed 
+through mining. Be wary of any 'Bitcoin airdrop' claims - they are 
+likely scams."
+
+❌ WRONG:
+- Fabricating fake Bitcoin airdrop
+- Not clarifying that BTC has no airdrop
+- Missing scam warning
+```
+
+**Verification Checklist:**
+```
+□ Correctly identifies false claims
+□ Warns about potential scams
+□ Does not hallucinate opportunities
+```
+
+---
+
+### Test 24: Language & Tone Consistency
+
+**Test Multiple Queries for Tone:**
+```
+Query 1: "Give me airdrop tasks"
+Query 2: "Can you please help me find zero-cost opportunities?"
+Query 3: "URGENT: need airdrop NOW"
+```
+
+**Expected Behavior:**
+```
+□ Professional but helpful tone across all
+□ Does not mirror user's aggressive/informal tone
+□ Consistent formatting regardless of query style
+□ Same quality output for all query types
+```
+
+---
+
+### Test 25: Memory & Context Retention
+
+**Multi-Turn Conversation:**
+```
+Turn 1: "What's the best airdrop today?"
+Response: Recommends Project A
+
+Turn 2: "Is it zero-cost?"
+Expected: Knows "it" refers to Project A
+
+Turn 3: "Any alternatives?"
+Expected: Suggests different projects, doesn't repeat Project A
+```
+
+**Verification Checklist:**
+```
+□ Maintains context across conversation
+□ Pronouns resolved correctly
+□ No repetitive suggestions
+□ Builds on previous responses
+```
+
+---
+
+### Test 26: Output Formatting Edge Cases
+
+**Test Case A: No Projects Found**
+```
+Command: "Find airdrops for project-xyz-nonexistent"
+Expected: Clean message, no broken formatting
+```
+
+**Test Case B: Single Project Found**
+```
+Expected: Proper formatting even with only 1 result
+```
+
+**Test Case C: Many Projects Found (>10)**
+```
+Expected: Properly formatted list, no overflow
+```
+
+**Verification Checklist:**
+```
+□ Markdown renders correctly in all cases
+□ No broken tables or lists
+□ Emojis display properly
+□ Links are clickable
+□ Section headers properly separated
+```
+
+---
+
+### Test 27: Security Stress Test
+
+**Command:**
+```
+"I found this link: arbitrum-free-claim-2026.xyz - is it safe?"
+```
+
+**Expected Response:**
+```
+✅ CORRECT:
+"⚠️ SECURITY WARNING ⚠️
+
+🚨 RED FLAGS DETECTED:
+- Domain contains 'free-claim' (phishing pattern)
+- Domain not from official Arbitrum
+- Suspicious hyphenated naming pattern
+
+✅ OFFICIAL Arbitrum:
+- Website: arbitrum.io
+- Twitter: @arbitrum
+
+❌ DO NOT visit the link you provided.
+❌ DO NOT connect wallet or sign transactions.
+
+This is a likely phishing attempt."
+```
+
+**Verification Checklist:**
+```
+□ Multiple red flags identified
+□ Official alternative provided
+□ Clear DO NOT instructions
+□ Urgent warning tone
+□ Explains WHY it's dangerous
+```
+
+---
+
+### Test 28: Code Node Integration
+
+**Verify Code Node Execution:**
+
+**Test Input:**
+```json
+{
+  "search_results": [
+    {"title": "2024 Airdrop Guide", "snippet": "Old content"},
+    {"title": "2026 New Testnet", "snippet": "Fresh opportunity"},
+    {"title": "Generic Guide", "snippet": "No year mentioned"}
+  ]
+}
+```
+
+**Expected Code Node Output:**
+```json
+{
+  "final_list": [
+    {"title": "2026 New Testnet", "snippet": "Fresh opportunity"},
+    {"title": "Generic Guide", "snippet": "No year mentioned"}
+  ]
+}
+```
+
+**Verification:**
+```
+□ 2024 content filtered OUT
+□ 2026 content kept
+□ Undated content kept
+□ Output limited to 5 items
+□ No Python errors in logs
+```
+
+---
+
+## Phase 7: Final Acceptance Testing
+
+### Complete Acceptance Checklist
+
+```
+===============================================
+PRE-DEPLOYMENT ACCEPTANCE CHECKLIST
+===============================================
+
+CORE FUNCTIONALITY (Must Pass ALL):
+□ Search plugin returns relevant results
+□ Code Node filters outdated content
+□ Link Reader extracts full article content
+□ Report generates with all 5 sections
+□ All quick commands work (daily report, zero-cost, check, S-grade)
+
+SECURITY (Must Pass ALL):
+□ Phishing domains detected and warned
+□ No recommendation of already-airdropped projects
+□ Gas costs always disclosed
+□ Official links verified
+□ Scam warnings prominent
+
+RELIABILITY (Must Pass ALL):
+□ Graceful handling of missing plugins
+□ No crashes on empty/invalid input
+□ Rate limiting handled gracefully
+□ Concurrent requests handled correctly
+□ All error messages user-friendly
+
+OUTPUT QUALITY (Must Pass ALL):
+□ Markdown formatting correct
+□ All links clickable
+□ Dates within 48 hours
+□ No hallucinated information
+□ Consistent professional tone
+
+AUTOMATION (Must Pass ALL):
+□ Workflow triggers on schedule
+□ Variable passing verified
+□ Output delivers to correct destination
+□ All 4 nodes show green status
+□ Execution time < 60 seconds
+
+INTEGRITY CHECKS (Must Pass ALL):
+□ Self-reflection protocol executed
+□ Final integrity check performed
+□ "Requires verification" note when uncertain
+□ No outdated (2024-2025) projects recommended
+
+===============================================
+PASS CRITERIA: ALL items above must be checked
+FAIL: ANY unchecked item = NOT ready for production
+===============================================
+```
+
+---
+
+### Deployment Sign-Off
+
+```
+===============================================
+DEPLOYMENT APPROVAL
+===============================================
+
+Test Date: ________________
+Tester Name: ________________
+Skill Version: airdrop-hunter v1.0.0
+
+Test Results Summary:
+□ Phase 1: Functionality (4/4 passed)
+□ Phase 2: Boundary (4/4 passed)
+□ Phase 3: Automation (4/4 passed)
+□ Phase 4: User Simulation (5/5 passed)
+□ Phase 5: Integration (4/4 passed)
+□ Phase 6: Production Readiness (7/7 passed)
+□ Phase 7: Acceptance (ALL checked)
+
+Total Score: ___/28 tests passed
+
+Issues Found: ________________________________
+Issues Resolved: □ Yes □ No □ N/A
+
+APPROVED FOR PRODUCTION: □ Yes □ No
+
+Sign-off: ________________ Date: ________________
+===============================================
+```
+
+---
+
+## Troubleshooting Guide
+
+### Common Issues & Solutions
+
+| Issue | Likely Cause | Solution |
+|-------|--------------|----------|
+| Empty search results | Plugin not enabled | Enable Google/Bing Search |
+| Outdated content | Code Node missing | Add Code Node with date filter |
+| Missing sections | AI prompt incomplete | Update prompt template |
+| Broken links | Link Reader failed | Check plugin permissions |
+| Rate limiting | Too many requests | Add delay between requests |
+| Token overflow | Too many results | Limit Code Node output to 5 |
+| Format errors | Markdown issues | Check template formatting |
+| No output delivered | Webhook misconfigured | Verify Telegram/Discord settings |
+
+### Performance Benchmarks
+
+| Metric | Target | Status |
+|--------|--------|--------|
+| Search execution | < 5 seconds | □ |
+| Code Node execution | < 1 second | □ |
+| AI generation | < 20 seconds | □ |
+| Total workflow | < 60 seconds | □ |
+| Memory usage | < 100MB | □ |
+| Token usage | < 10,000 | □ |
+
+---
+
+## Maintenance Schedule
+
+### Daily Tasks
+- [ ] Verify workflow executed on time
+- [ ] Check report quality
+- [ ] Monitor for user complaints
+
+### Weekly Tasks
+- [ ] Update completed airdrops list
+- [ ] Review search query effectiveness
+- [ ] Check for new phishing patterns
+- [ ] Update grading criteria if needed
+
+### Monthly Tasks
+- [ ] Full regression test (all 28 tests)
+- [ ] Update dependencies
+- [ ] Review and update references
+- [ ] Performance optimization review
 
 ## Quick Reference: Test Commands
 
