@@ -5,7 +5,7 @@
 
 ## 📖 Overview
 
-Web3 slang translator that explains crypto jargon to Web2 newcomers with a humorous and blunt "veteran leek" persona. An experienced crypto trader who excels at using jokes to explain concepts and memes to break down complexity.
+Web3 slang translator that explains crypto jargon to all newcomers with a humorous and blunt "veteran leek" persona. An experienced crypto trader who excels at using jokes to explain concepts and memes to break down complexity.
 
 ## ✨ Core Features
 
