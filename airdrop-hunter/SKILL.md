@@ -412,3 +412,148 @@ This Skill provides information only, not financial advice. Always:
 - S/A/B grading system
 - Daily report template
 - Security verification checks
+
+---
+
+## Phase 1: Functionality Testing Guide
+
+Before deploying to production, verify each plugin works correctly.
+
+### Test 1: Search Capability
+
+**Command:**
+```
+Search for latest airdrop tasks about Linea or Scroll in the past 24 hours.
+```
+
+**What to Check:**
+- [ ] Right panel logs show Google Search / Bing Search was actually called
+- [ ] Returned links are recent (check dates are current month/year)
+- [ ] Not returning outdated data from 2024 or older
+- [ ] At least 3-5 relevant results returned
+
+**Pass Criteria:**
+- Plugin invoked successfully
+- Results are time-relevant
+- Links are from credible sources
+
+---
+
+### Test 2: Link Reader Capability
+
+**Command:**
+```
+Read this link and summarize the airdrop tasks: [Insert a recent Mirror or Medium airdrop tutorial URL]
+```
+
+**What to Check:**
+- [ ] Link Reader plugin is called
+- [ ] Returns full article content, not just title
+- [ ] Extracts key details: project name, interaction steps, deadlines
+- [ ] Correctly identifies if it's a testnet or mainnet task
+
+**Sample Test URL:**
+```
+https://mirror.xyz/0x... (replace with actual Mirror post)
+https://medium.com/... (replace with actual Medium article)
+```
+
+**Pass Criteria:**
+- Full content extracted
+- Key action items identified
+- Deadlines and costs captured
+
+---
+
+### Test 3: Format Compliance
+
+**Command:**
+```
+Generate today's airdrop daily report.
+```
+
+**What to Check:**
+
+Compare output against this template:
+
+```
+✅ Required Sections:
+□ 📅 Date header present
+□ 🔥 TOP PRIORITY (Grade S/A) section exists
+□ 🧪 ZERO-COST TESTNETS (Grade B) section exists
+□ 📅 TODAY'S DEADLINES section exists
+□ ⚠️ SECURITY ALERTS section exists
+
+✅ Required Format per Task:
+□ Project name present
+□ Action steps specified
+□ Cost/Time estimate included
+□ "Why" reasoning provided
+□ Official link included
+
+✅ Security Checks:
+□ Phishing warnings present
+□ "Verify URLs" reminder included
+□ No endorsement of suspicious projects
+```
+
+**Pass Criteria:**
+- All 5 sections present
+- Each task has complete info (name, action, cost, link)
+- Security warnings included
+- No formatting errors (broken Markdown, missing brackets)
+
+---
+
+### Test 4: Edge Cases
+
+**Test 4a: No Results Found**
+```
+Command: "Search for airdrop tasks for project xyz123fake"
+Check: Returns graceful message, not error
+```
+
+**Test 4b: Ambiguous Query**
+```
+Command: "Is Arbitrum good?"
+Check: Asks for clarification or provides balanced info
+```
+
+**Test 4c: Security Threat**
+```
+Command: "Check this link: [suspicious/fake domain]"
+Check: Warns user about potential phishing
+```
+
+---
+
+### Quick Test Checklist
+
+Run all tests and mark results:
+
+```
+□ Test 1: Search Capability      [PASS / FAIL]
+□ Test 2: Link Reader           [PASS / FAIL]
+□ Test 3: Format Compliance     [PASS / FAIL]
+□ Test 4: Edge Cases            [PASS / FAIL]
+
+Overall: ___/4 Passed
+```
+
+**If any test fails:**
+1. Check plugin is enabled in Coze
+2. Verify plugin has proper permissions
+3. Review search queries in SKILL.md
+4. Test plugin independently outside Skill
+
+---
+
+### Troubleshooting Common Issues
+
+| Issue | Likely Cause | Solution |
+|-------|--------------|----------|
+| No search results | Plugin not enabled | Enable Google/Bing Search |
+| Outdated results | No date filter | Add "after:today" to query |
+| Link Reader fails | URL blocked/paywalled | Try different URL source |
+| Missing sections | Prompt template issue | Review AI Node prompt |
+| Wrong format | Template not followed | Add explicit format examples |
