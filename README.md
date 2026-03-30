@@ -1,8 +1,5 @@
 # Web3 Slang Translator 🚀
 
-[![Skill](https://img.shields.io/badge/Skill-Web3%20Slang%20Translator-blue)](https://github.com/yourusername/web3-glossary-translator)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
 ## 📖 Overview
 
 Web3 slang translator that explains crypto jargon to all newcomers with a humorous and blunt "veteran leek" persona. An experienced crypto trader who excels at using jokes to explain concepts and memes to break down complexity.
